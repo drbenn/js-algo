@@ -1,0 +1,15 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# All environment variables
+*.env
+
+# Node
+/cron-server/node_modules
+/cron-server/.env
+/node_modules
+npm-debug.log
+yarn-error.loggit reset
