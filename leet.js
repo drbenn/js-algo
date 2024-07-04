@@ -1,5 +1,126 @@
 
 /**
+ * 66. Plus One
+ */
+
+function plusOne(digits) {
+  const newTotal = (BigInt(digits.join('')) + 1n).toString();
+  const solution = [];
+
+  for (let i = 0; i < newTotal.length; i++) {
+    solution.push(Number(newTotal[i]));
+  };
+  
+  return solution;
+}
+
+console.log(plusOne([1,2,3]));
+
+
+/**
+ * 977. Squares of a Sorted Array
+ */
+
+function squaresOfASortedArray(nums) {
+    let solution = [];
+    for (let num in nums) {
+      solution.push(Math.pow(nums[num],2));
+    };
+    solution.sort((a,b) => a - b);
+    return solution;
+};
+
+// console.log(squaresOfASortedArray([-7,-3,2,3,11]));
+
+
+
+/** 
+ * 1550. Three Consecutive Odds
+ */
+
+function threeConsecutiveOdds(arr) {
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 !== 0) {
+      count += 1;
+    } else {
+      count = 0;
+    };
+    if (count === 3) {
+      return true;
+    };
+  };
+  return false;
+};
+
+// console.log(threeConsecutiveOdds([1,2,34,3,4,5,7,23,12]));
+
+/**
+ * 136. Single Number
+ */
+
+function singleNumber(nums) {
+  let pairs = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    pairs[nums[i]] ? pairs[nums[i]] += 1 : pairs[nums[i]] = 1;
+  };
+
+  let solution = Object.entries(pairs).find(([key, val]) => val === 1 );
+  return solution[0];
+}
+
+// console.log(singleNumber([4,1,2,1,2]));
+
+/**
+ * 35. Search Insert Position
+ */
+
+function searchInsertPosition(nums, target) {
+  // edge cases
+  if (nums[0] > target) {
+    return 0;
+  };
+  if (nums[nums.length - 1] < target) {
+    return nums.length;
+  };
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === target) {
+      return i;
+    }
+    if (nums[i] > target) {
+      return i;
+    }
+  }
+}
+
+// console.log(searchInsertPosition([1,3,5,6], 7));
+
+/**
+ * 9. Palindrome Number
+ */
+
+function palindromeNumber(x) {
+  // change x to string for comparison/looping purposes
+  const xString = x.toString();
+
+  // get reverse
+  let reverseString = x.toString().split('').reverse();
+
+  // loop to check if each character is equal, otherwise fail
+  for (let i = 0; i < xString.length; i++) {
+    if (xString[i] !== reverseString[i]) return false;
+  };
+
+  // if comparison passes the gauntley, then is palindrome.
+  return true;
+};
+
+// console.log(palindromeNumber(121));
+
+
+/**
  * 58. Length of Last Word
  */
 
@@ -9,7 +130,7 @@ function lengthOfLastWord(s) {
   return length;
 }
 
-console.log(lengthOfLastWord('   fly me   to   the moon  '));
+// console.log(lengthOfLastWord('   fly me   to   the moon  '));
 
 
 /**
