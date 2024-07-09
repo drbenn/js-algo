@@ -1,5 +1,113 @@
 
 /**
+ * 125. Valid Palindrome
+ */
+
+function validPalindrome(s) {
+  const regexAlphaOnly = /[^a-z0-9]/g;
+  const formattedS = s.toLowerCase().replace(regexAlphaOnly,'');
+  const reversedFormattedS = formattedS.split('').reverse().join('');
+
+  return formattedS === reversedFormattedS;
+}
+
+// console.log(validPalindrome("race a car"));
+
+/**
+ * 128. Longest Consecutive Sequence
+ */
+
+function longestConsecutiveSequence(nums) {
+  if (nums.length === 0) return 0;
+  nums = [...new Set(nums.sort((a,b) => a - b))];
+  let currentConsecutive = 1;
+  let maxConsecutive = 1;
+
+  for (let i = 0; i < nums.length -1; i++) {
+    if (nums[i] === nums[i+1] -1) {
+      currentConsecutive += 1;
+      currentConsecutive > maxConsecutive ? maxConsecutive = currentConsecutive : null;
+    } else {
+      currentConsecutive = 1;
+    }
+  };
+  return maxConsecutive;
+}
+
+// console.log(longestConsecutiveSequence([100,4,200,1,3,2]))
+
+/**
+ * 347. Top K Frequent Elements
+ */
+
+function topKFrequentElements(nums,k) {
+  let obj = {};
+  for (let i = 0; i < nums.length; i++) {
+    if (!obj[nums[i]]) obj[nums[i]] = 1;
+    else obj[nums[i]] += 1;
+  };
+  let sortedValues = Object.entries(obj).sort((a, b) => a[1] - b[1]);
+  let solution = [];
+  for (let i = 0; i < k; i++) {
+    let countArray = sortedValues.pop(); 
+    solution.push(parseInt(countArray[0]));
+  };
+  return solution;
+}
+
+// console.log(topKFrequentElements([1,1,1,2,2,3], 2));
+
+
+/**
+ * 49. Group Anagrams
+ */
+
+function groupAnagrams(strs) {
+  let results = new Map();
+  let solution = [];
+
+  for (let i = 0; i < strs.length; i++) {
+    let sortedStr = strs[i].split('').sort().join('');
+    if (results.get(sortedStr)) {
+      results.set(sortedStr, [...results.get(sortedStr), strs[i]])
+    } else {
+      results.set(sortedStr, [strs[i]])
+    }
+  }
+
+  results.forEach(result => solution.push(result));
+  return solution;
+}
+
+// console.log(groupAnagrams(["eat","tea","tan","ate","nat","bat"]));
+
+
+
+/** 
+ * 268. Missing Number
+ */
+
+function missingNumber(nums) {
+  const sortedNums = nums.sort((a,b) => a - b);
+
+  // range must be [0,n], if fail because 0 missing, quick turnaround.
+  if (sortedNums[0] !== 0) return 0;
+
+  for (let i = 0; i < sortedNums.length; i++) {
+    if (sortedNums[i] !== 0 && sortedNums[i] !== sortedNums[i - 1] + 1) {
+      return sortedNums[i - 1] + 1;
+    };
+  };
+
+  // in instance [0,n] is correct but missing number is at the end of the otherwise perfect array
+  // the only possibity is to return the highest new value at end of array
+  return sortedNums[sortedNums.length - 1] + 1;
+}
+
+// console.log(missingNumber([9,6,4,2,3,5,7,0,1]));
+
+
+/**
  * 66. Plus One
  */
 
@@ -14,7 +122,7 @@ function plusOne(digits) {
   return solution;
 }
 
-console.log(plusOne([1,2,3]));
+// console.log(plusOne([1,2,3]));
 
 
 /**
